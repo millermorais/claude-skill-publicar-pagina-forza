@@ -1,12 +1,18 @@
 # assets/
 
-Screenshots usados em `SETUP.md`.
+Screenshots usados na documentação pública da skill em
+https://forza.gabiarchetti.com/skill/publicar-pagina.
 
 | Arquivo | Mostra |
 |---|---|
 | `01-signup.png` | Tela de signup pública da Netlify com os botões de OAuth |
-| `02-personal-access-tokens.png` | Página Applications com a seção Personal access tokens e o botão New access token |
-| `03-new-token-form.png` | Formulário Generate a personal access token preenchido com `claude-publicar` + No expiration |
-| `04-token-generated.png` | Tela New token created (chave mascarada com bullets, original revogada pós-captura) |
 
-**Capturados em:** 2026-05-21 via Playwright MCP em sessão logada com credencial real, token de exemplo gerado e revogado em seguida.
+**Capturado em:** 2026-05-21 via Playwright MCP.
+
+## Histórico
+
+Na v0.x existiam mais 3 screenshots (`02-personal-access-tokens.png`,
+`03-new-token-form.png`, `04-token-generated.png`) que mostravam o fluxo de
+gerar Personal Access Token no painel Netlify. Foram removidos na v1.0.0
+porque a skill não usa mais PAT — pivotou pro connector OAuth oficial do
+Cowork. Estão disponíveis no histórico do git se precisar recuperar.
