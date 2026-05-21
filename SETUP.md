@@ -13,7 +13,7 @@ Você só precisa fazer isso **uma vez**. Depois disso, é só pedir pro Claude 
 2. Clica em **Sign up with Google** (é o jeito mais rápido)
 3. Escolhe sua conta Google e confirma
 
-> *Tela esperada: formulário de signup da Netlify com botões "Sign up with GitHub", "Sign up with GitLab", "Sign up with Bitbucket", "Sign up with Email", "Sign up with Google".*
+![Tela de signup da Netlify com os botões Sign up with Google, GitHub, GitLab, Bitbucket e Email](assets/01-signup.png)
 
 **⚠ Importante:** depois de criar a conta, a Netlify vai abrir **várias telas perguntando qual seu projeto, oferecendo IA, sugerindo templates**. Ignora tudo. Pula, fecha, clica em qualquer "skip", "no thanks". Você não precisa criar nenhum projeto pelo painel — o Claude faz isso pra você.
 
@@ -25,7 +25,7 @@ Se ficar travada em alguma tela, fecha tudo e vai direto pro Passo 2.
 
 1. Abre esse link (já logada): **https://app.netlify.com/user/applications#personal-access-tokens**
 
-   > *Tela esperada: aba "Applications" com seções "OAuth applications" no topo e "Personal access tokens" no meio da página.*
+   ![Aba Applications com a seção Personal access tokens e o botão New access token](assets/02-personal-access-tokens.png)
 
 2. Na seção **Personal access tokens**, clica no botão **New access token**
 
@@ -34,7 +34,13 @@ Se ficar travada em alguma tela, fecha tudo e vai direto pro Passo 2.
    - **Expiration**: deixa **No expiration** ✅ (pra nunca precisar refazer essa etapa)
    - Clica em **Generate token**
 
+   ![Formulário Generate a personal access token com Description preenchida com claude-publicar e Expiration definido como No expiration](assets/03-new-token-form.png)
+
+   > *A Netlify exibe um aviso amarelo recomendando definir uma data de expiração — você pode ignorar pra esse caso (uso pessoal só pra publicar páginas). Se preferir trocar a chave de tempos em tempos, escolha 90 days no lugar.*
+
 4. A próxima tela mostra a **chave grande**, que começa com `nfp_` seguida de muitas letras e números.
+
+   ![Tela New token created com a chave nfp_ em destaque e o botão Copy](assets/04-token-generated.png)
 
    **⚠ MUITO IMPORTANTE:** a Netlify mostra essa chave **uma única vez**. Se você fechar a tela sem copiar, vai precisar gerar outra (não tem problema gerar outra, só dá trabalho).
 
