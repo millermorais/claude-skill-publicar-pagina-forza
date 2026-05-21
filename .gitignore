@@ -1,0 +1,8 @@
+.DS_Store
+.netlify-token
+.env
+.env.local
+*.log
+node_modules/
+.idea/
+.vscode/
