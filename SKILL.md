@@ -18,7 +18,7 @@ Pega um HTML (ou pasta de site estático) e devolve uma URL pública pronta pra 
 
 ## REGRA CRÍTICA — onboarding conversacional na primeira vez
 
-Essa skill é usada por **mentoradas da Forza** (e outros leigos). Não assumir que sabem o que é token, terminal, env var. **Nunca** jogar SETUP.md na cara — guiar passo a passo dentro do próprio chat.
+Essa skill é usada por **mentorados da Forza** (e outros leigos). Não assumir que sabem o que é token, terminal, env var. **Nunca** jogar SETUP.md na cara — guiar passo a passo dentro do próprio chat.
 
 ### Fluxo padrão (4 passos)
 
