@@ -77,8 +77,20 @@ if [ "$USE_LAST" = "1" ]; then
   fi
 fi
 
+# --- Detecta sha1sum (Linux GNU) ou shasum (macOS BSD) ---
+if command -v sha1sum >/dev/null 2>&1; then
+  SHA1_CMD="sha1sum"
+elif command -v shasum >/dev/null 2>&1; then
+  SHA1_CMD="shasum -a 1"
+else
+  echo "ERRO: nem sha1sum nem shasum disponíveis. Instale um dos dois." >&2
+  exit 1
+fi
+
 # --- Payload ---
-WORKDIR=$(mktemp -d -t netlify-deploy)
+# `-t` significa coisas diferentes em macOS (prefixo) vs Linux (template).
+# Usar template com XXXXXX explícito funciona em ambos.
+WORKDIR=$(mktemp -d -t netlify-deploy-XXXXXX)
 PAYLOAD_DIR="$WORKDIR/payload"
 mkdir -p "$PAYLOAD_DIR"
 
@@ -122,7 +134,7 @@ fi
 # --- File digests ---
 FILES_JSON=$(cd "$PAYLOAD_DIR" && find . -type f | while read -r f; do
   REL="${f#./}"
-  SHA=$(shasum -a 1 "$f" | awk '{print $1}')
+  SHA=$($SHA1_CMD "$f" | awk '{print $1}')
   printf '%s\t%s\n' "/$REL" "$SHA"
 done | jq -Rs 'split("\n") | map(select(length > 0) | split("\t") | {key: .[0], value: .[1]}) | from_entries')
 
@@ -173,7 +185,7 @@ fi
 if [ -n "$REQUIRED" ]; then
   for SHA in $REQUIRED; do
     FILE=$(cd "$PAYLOAD_DIR" && find . -type f | while read -r f; do
-      THIS_SHA=$(shasum -a 1 "$f" | awk '{print $1}')
+      THIS_SHA=$($SHA1_CMD "$f" | awk '{print $1}')
       if [ "$THIS_SHA" = "$SHA" ]; then
         echo "${f#./}"
         break
@@ -199,18 +211,25 @@ if [ -n "$REQUIRED" ]; then
   done
 fi
 
-# --- Aguarda ready (até 30s) ---
-for i in $(seq 1 15); do
+# --- Aguarda ready (até 60s, com erro real se timeout) ---
+DEPLOY_STATE=""
+for i in $(seq 1 30); do
   DEPLOY_STATE=$(curl -sS -H "Authorization: Bearer $TOKEN" "$API/deploys/$DEPLOY_ID" | jq -r '.state // empty')
   if [ "$DEPLOY_STATE" = "ready" ]; then
     break
   fi
   if [ "$DEPLOY_STATE" = "error" ]; then
-    echo "ERRO: publicação falhou no Netlify." >&2
+    echo "ERRO: publicação falhou no Netlify (deploy state=error)." >&2
     exit 1
   fi
   sleep 2
 done
+
+if [ "$DEPLOY_STATE" != "ready" ]; then
+  echo "ERRO: deploy não ficou pronto em 60s (estado atual: $DEPLOY_STATE)." >&2
+  echo "Pode ainda estar processando — confira em https://app.netlify.com/sites em alguns minutos." >&2
+  exit 1
+fi
 
 # --- Info final ---
 SITE_INFO=$(curl -sS -H "Authorization: Bearer $TOKEN" "$API/sites/$SITE_ID")
