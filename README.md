@@ -1,11 +1,9 @@
-# Publicar Página — skill pro Claude Code
+# Publicar Página — skill pro Claude Desktop
 
-Coloca uma página HTML no ar e te dá um link público pra mandar pro cliente, lead, parceiro. Tudo dentro do Claude Code.
+Coloca uma página HTML no ar e te dá um link público pra mandar pro cliente, lead, parceiro. Tudo dentro do Claude.
 
 Você fala: *"publica essa página pra mim"*.
 Em segundos, recebe: `https://nome-da-pagina.netlify.app`.
-
-Pronto, é isso.
 
 ## Pra que serve
 
@@ -21,35 +19,26 @@ Pronto, é isso.
 - Não precisa instalar nada complicado no computador
 - Não precisa saber programar
 - Custo: zero (plano gratuito da Netlify cobre tudo isso)
-- Pode trocar pro seu domínio próprio depois (`suamarca.com.br`)
+- Não precisa lidar com token/chave — conexão é OAuth via Claude Desktop, fica salva pra sempre
 
 ## Como instalar (faz 1 vez)
 
-Cole esse comando no Claude Code:
+1. Baixa o ZIP da skill: [publicar-pagina.zip](https://github.com/millermorais/claude-skill-publicar-pagina-forza/releases/latest/download/publicar-pagina.zip)
+2. No Claude Desktop, vai em **Customize → Habilidades → + → Criar habilidade → Fazer upload de uma habilidade**
+3. Arrasta o ZIP
 
-```
-Quero instalar a skill publicar-pagina. Roda esses comandos:
+## Como configurar (faz 1 vez, dentro do Claude Desktop)
 
-mkdir -p ~/.claude/skills
-cd ~/.claude/skills
-git clone https://github.com/millermorais/claude-skill-publicar-pagina-forza publicar-pagina
+Você precisa conectar sua conta Netlify ao Claude — sem token, é OAuth normal:
 
-Depois me confirma que instalou.
-```
+1. Cria conta grátis na Netlify (entrar com Google é mais rápido): https://app.netlify.com/signup
+2. No Claude Desktop, vai em **Settings → Connectors → Netlify → Login**
+3. Faz login e autoriza
+4. Pronto, conexão fica salva pra sempre
 
-Pronto. Daí em diante é só pedir pro Claude publicar uma página.
+## Como usar (no dia a dia, sempre na aba Cowork)
 
-## Como configurar (faz 1 vez, dentro do chat)
-
-Na primeira vez que você pedir pra publicar alguma coisa, o Claude vai te guiar em 3 minutos:
-
-1. Você cria conta grátis na Netlify (entrar com Google é mais rápido)
-2. Pega uma chave de acesso (link direto, 2 cliques)
-3. Cola a chave no chat — o Claude salva pra você
-
-Depois disso, nunca mais precisa configurar. Só pedir.
-
-## Como usar (no dia a dia)
+A skill executa comandos no sandbox Linux do Claude, então sempre use **na aba Cowork** (no topo do Claude Desktop, entre Chat e Code).
 
 Você tem um HTML pronto? Fala com o Claude:
 
@@ -59,13 +48,11 @@ O Claude responde com a URL. Você manda pra cliente.
 
 Se quiser **atualizar** uma página que já publicou:
 
-> *"Atualiza a página de antes com esse novo HTML"*
+> *"Atualiza a página `proposta-joana` com esse novo HTML"*
 
-Se quiser **conectar o seu próprio domínio** (ex: `clinica-x.com.br`):
+Se quiser **listar** as páginas publicadas:
 
-> *"Quero usar meu domínio nessa página"*
-
-O Claude segue o passo a passo do arquivo `DOMINIO.md` da skill.
+> *"Quais páginas eu tenho publicadas?"*
 
 ## O que dá pra publicar (e o que não dá)
 
@@ -80,7 +67,10 @@ O Claude segue o passo a passo do arquivo `DOMINIO.md` da skill.
 - Site WordPress (precisa de servidor com PHP)
 - Site com banco de dados (login, painel admin)
 
-Se a sua página é "abre no navegador e funciona", esse é seu caso. Se precisa de servidor pra rodar, não é.
+## Limites conhecidos (v1.0.0)
+
+- **Apagar página:** precisa apagar manualmente pelo painel da Netlify (`https://app.netlify.com/projects/NOME → Site configuration → Delete`). O Claude te orienta quando você pedir pra apagar.
+- **Domínio próprio (`clinica.com.br`):** ainda não disponível nessa versão. Suporte planejado pra v1.1.
 
 ## Quanto pode usar (de graça)
 
@@ -90,14 +80,12 @@ Plano grátis da Netlify cobre:
 - **Atualizações ilimitadas** (pode publicar versão nova quando quiser)
 - **HTTPS automático** (o cadeado verde no navegador)
 
-Pra proposta, landing, ferramenta — sobra muito. Se uma página explodir e estourar o limite, a Netlify avisa antes de cobrar.
-
 ## Se travar
 
-- **"Não consigo achar onde pegar o token na Netlify"** → veja `SETUP.md`
-- **"A chave que colei não funcionou"** → gera outra no mesmo link (Netlify só mostra uma vez quando cria, então copia ela inteira)
-- **"O nome que escolhi tá indisponível"** → o nome é compartilhado por todo mundo da Netlify. Tenta com seu sobrenome ou com `-2026`
-- **Outros problemas** → pede ajuda pro Claude direto: *"deu erro X, o que faço?"*
+- **"A skill diz pra ir pro Cowork"** → você tá na aba Chat. Clica em **Cowork** no topo do Claude Desktop e tenta de novo.
+- **"Você ainda não conectou sua conta Netlify"** → segue o setup acima (Settings → Connectors → Netlify → Login).
+- **"Erro no deploy" / "server isn't responding"** → o connector às vezes tem falhas transitórias. A skill tenta de novo automaticamente, mas se persistir, espera 1-2 min e pede de novo.
+- **Outros problemas** → conta pro Claude exatamente o erro — ele sabe interpretar.
 
 ## Quem fez
 

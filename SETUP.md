@@ -1,9 +1,8 @@
-# Configurar a chave da Netlify (passo a passo)
+# Configurar Netlify no Claude Desktop (passo a passo)
 
-Você só precisa fazer isso **uma vez**. Depois disso, é só pedir pro Claude publicar e ele já sabe como.
+Você só precisa fazer isso **uma vez**. Depois disso, é só pedir pro Claude publicar.
 
-> O melhor caminho é deixar o **Claude te guiar dentro do chat**.
-> Mas se você quiser ver tudo escrito antes, é isso aqui:
+A v1.0.0 da skill usa o **connector oficial Netlify** do Claude Desktop. Você não precisa lidar com tokens, chaves nem cola de credencial — é OAuth normal, igual login com Google.
 
 ---
 
@@ -13,85 +12,61 @@ Você só precisa fazer isso **uma vez**. Depois disso, é só pedir pro Claude 
 2. Clica em **Sign up with Google** (é o jeito mais rápido)
 3. Escolhe sua conta Google e confirma
 
-![Tela de signup da Netlify com os botões Sign up with Google, GitHub, GitLab, Bitbucket e Email](assets/01-signup.png)
+> *Tela esperada: formulário de signup da Netlify com botões "Sign up with GitHub", "Sign up with GitLab", "Sign up with Bitbucket", "Sign up with Email", "Sign up with Google".*
 
-**⚠ Importante:** depois de criar a conta, a Netlify vai abrir **várias telas perguntando qual seu projeto, oferecendo IA, sugerindo templates**. Ignora tudo. Pula, fecha, clica em qualquer "skip", "no thanks". Você não precisa criar nenhum projeto pelo painel — o Claude faz isso pra você.
+**⚠ Importante:** depois de criar a conta, a Netlify vai te empurrar uma sequência chata de telas pedindo pra criar projeto, perguntando seu plano, oferecendo IA, pedindo pra preencher dados. **Ignora tudo.** Clica em "Skip" / "No thanks" / fecha o que der. Você não precisa criar nenhum projeto pelo painel — a skill cuida disso.
 
-Se ficar travada em alguma tela, fecha tudo e vai direto pro Passo 2.
-
----
-
-## Passo 2 — Gerar a chave de acesso
-
-1. Abre esse link (já logada): **https://app.netlify.com/user/applications#personal-access-tokens**
-
-   ![Aba Applications com a seção Personal access tokens e o botão New access token](assets/02-personal-access-tokens.png)
-
-2. Na seção **Personal access tokens**, clica no botão **New access token**
-
-3. Aparece uma janela pedindo:
-   - **Description**: coloca `claude-publicar` (ou qualquer nome — só pra você lembrar pra que serve)
-   - **Expiration**: deixa **No expiration** ✅ (pra nunca precisar refazer essa etapa)
-   - Clica em **Generate token**
-
-   ![Formulário Generate a personal access token com Description preenchida com claude-publicar e Expiration definido como No expiration](assets/03-new-token-form.png)
-
-   > *A Netlify exibe um aviso amarelo recomendando definir uma data de expiração — você pode ignorar pra esse caso (uso pessoal só pra publicar páginas). Se preferir trocar a chave de tempos em tempos, escolha 90 days no lugar.*
-
-4. A próxima tela mostra a **chave grande**, que começa com `nfp_` seguida de muitas letras e números.
-
-   ![Tela New token created com a chave nfp_ em destaque e o botão Copy](assets/04-token-generated.png)
-
-   **⚠ MUITO IMPORTANTE:** a Netlify mostra essa chave **uma única vez**. Se você fechar a tela sem copiar, vai precisar gerar outra (não tem problema gerar outra, só dá trabalho).
-
-5. **Copia a chave inteira** (clica no botão "Copy" ao lado dela).
+Quando livrar dessas telas (ou deixar a aba aberta), vai pro Passo 2.
 
 ---
 
-## Passo 3 — Colar a chave no chat
+## Passo 2 — Conectar Netlify no Claude Desktop
 
-Volta pro Claude Code (ou pra conversa em que você estava falando com o Claude) e cola a chave. Pode ser direto:
-
-> `nfp_abc123XYZ456...` *(a chave completa)*
-
-O Claude vai:
-1. Validar se a chave funciona (testa com a Netlify)
-2. Salvar pra você em um lugar seguro do seu computador
-3. Te avisar: "ok, conectei sua conta da Netlify"
-
-**Você não vai precisar dessa chave de novo.** Fica salva. Se trocar de computador, refaz esses 3 passos.
+1. Abre o **Claude Desktop**
+2. Vai em **Settings** (configurações da sua conta)
+3. Procura por **Connectors** (ou "Conectores")
+4. Encontra **Netlify** na lista
+5. Clica em **Connect** ou **Login**
+6. Vai abrir uma janela do navegador no site da Netlify pedindo pra você autorizar o acesso
+7. Confirma com a mesma conta que você criou no Passo 1
+8. Pronto — a conexão fica salva pra sempre
 
 ---
 
 ## Pronto
 
-Daí em diante, é só pedir:
+Daí em diante, sempre que você quiser publicar uma página:
 
-> *"publica essa página pra mim"*
+1. Abre o Claude Desktop, vai pra aba **Cowork** (entre Chat e Code no topo)
+2. Pede: *"publica essa página pra mim, chama de proposta-bia"*
 
-E o Claude usa a skill automaticamente.
+Ele faz tudo. Não precisa colar token, não precisa configurar nada de novo.
 
 ---
 
 ## Se algo der errado
 
-### "A chave que colei não foi aceita"
+### "Não tenho o Netlify na lista de Connectors"
 
-Provavelmente você copiou a chave incompleta. Volta no link do Passo 2, gera uma chave nova, copia ela inteira (use Ctrl+A no campo dela ou o botão "Copy") e cola de novo no Claude.
+A lista de connectors disponíveis depende da sua versão do Claude Desktop. Atualize pra última versão (geralmente tem um botão "Atualizar" no canto inferior do app).
 
-### "Não consigo achar a conta na Netlify depois que criei"
+### "Cliquei em Connect mas o navegador não abriu"
 
-Tenta entrar de novo aqui: https://app.netlify.com/login — usa o mesmo método que escolheu pra criar (Google, GitHub, etc).
+Tente de novo. Se persistir, copia o link que aparece e cola no navegador manualmente.
 
-### "A Netlify tá me pedindo cartão de crédito"
+### "Autorizei mas a skill ainda diz que não tô conectado"
 
-Não pede. Se pediu, você clicou em "upgrade" sem querer. Recusa e continua no plano free. O plano free não pede cartão.
+Fecha e abre o Claude Desktop. Tenta usar a skill de novo.
+
+### "Eu tinha uma versão antiga (v0.x) que pedia pra colar um token nfp_..."
+
+Essa versão foi descontinuada na v1.0.0. Você pode revogar o token antigo (já que não vai mais usar):
+1. Abre https://app.netlify.com/user/applications#personal-access-tokens
+2. Encontra o token chamado `claude-publicar` (ou nome que você deu)
+3. Clica em **Options → Revoke**
+
+Conta gratuita atende tranquilamente — não precisa do token mais.
 
 ### Outros problemas
 
 Conta pro Claude exatamente o que apareceu na tela. Ele sabe interpretar a maioria dos erros.
-
----
-
-> 💡 **Pra que serve essa chave?**
-> A chave dá ao Claude permissão de publicar páginas na sua conta da Netlify. Sem ela, o Claude não consegue subir nada no seu nome. Ela fica só no seu computador (nunca vai pra GitHub nem pra outro lugar).

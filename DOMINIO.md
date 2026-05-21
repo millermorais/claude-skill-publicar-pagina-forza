@@ -1,10 +1,18 @@
 # Conectar meu próprio domínio à página
 
+> ⚠️ **Status na v1.0.0:** suporte a domínio próprio **NÃO está incluso** nessa versão da skill. O connector oficial Netlify do Claude Desktop não expõe ferramentas pra configurar domínio customizado — apenas deploy e gestão de site básico.
+>
+> **Workaround atual:** se você precisa de domínio próprio agora, configure manualmente pelo painel da Netlify (`https://app.netlify.com/projects/SEU-SITE → Domain management → Add custom domain`). O passo a passo abaixo serve como referência do processo manual.
+>
+> **Planejado pra v1.1:** caminho complementar usando Personal Access Token só pra configurar domínio (mantendo o connector como caminho principal). Estimativa sem data.
+
+---
+
 Por padrão, uma página publicada com essa skill vira algo tipo `proposta-joana.netlify.app`. Funciona, mas talvez você queira usar o seu próprio domínio: `clinica-joana.com.br`, `proposta.suamarca.com`, etc.
 
-Esse documento mostra como fazer isso. Tem 2 partes:
+Esse documento descreve o processo (manual por enquanto). Tem 2 partes:
 
-1. Avisar a Netlify que você quer usar o seu domínio (Claude faz por você)
+1. Avisar a Netlify que você quer usar o seu domínio (no painel web por enquanto)
 2. Configurar o seu domínio pra apontar pra Netlify (você faz no painel de quem te vendeu o domínio)
 
 ---
